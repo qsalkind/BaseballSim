@@ -73,6 +73,7 @@ public class BasePath {
                     first = null;
                 }
                 third = batter;
+                //
                 break;
             case HOMERUN:
                 scoreCard.addRuns(1 + getNumRunnersOn());
