@@ -72,7 +72,7 @@ public class BasePath {
                     scoreCard.addRuns(1);
                     first = null;
                 }
-                second = batter;
+                third = batter;
                 break;
             case HOMERUN:
                 scoreCard.addRuns(1 + getNumRunnersOn());
