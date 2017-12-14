@@ -22,39 +22,46 @@ public class BaseballSim {
     
     private static ScoreCard scoreCard = new ScoreCard();
     private static BasePath basePath = new BasePath(scoreCard);
+    private static int numGames = 162;
                 
     public static void main(String args[]) {
         
-            //for 9 innings
-                //if # of outs less than 3
-                    //next bater in order takes at bat
-                //else
-                    //clear base paths
-                    //clear num outs
+            int totalRuns = 0;
+            //simulate some amount of games
+            for (int i = 0; i < numGames; i++)    { 
+                //simulate a game
+                while (scoreCard.getInning() < 10) {
+                    if (scoreCard.getCurrentOuts() < 3) {
+                        System.out.println("============");
+                        System.out.println(lineup);
+                        System.out.println(scoreCard);
+                        System.out.println("Runners: " +  basePath);
+                        System.out.println("============");
+                        Batter b = lineup.getCurrentBatter();
+                        basePath.handlePAResult(b, b.takeAtBat());
+                        lineup.incrimentCurrentBatter();
+                        System.out.println("\n\n");
+                    } else {
+                        System.out.println("End of inning: " + scoreCard.getInning());
+                        scoreCard.incrimentInning();
+                        scoreCard.clearOuts();
+                        basePath.clearBasePath();
+                    }
                     
-            while (scoreCard.getInning() < 1458) {
-                if (scoreCard.getCurrentOuts() < 3) {
-                    System.out.println("============");
-                    System.out.println(lineup);
-                    System.out.println(scoreCard);
-                    System.out.println("Runners: " +  basePath);
-                    System.out.println("============");
-                    Batter b = lineup.getCurrentBatter();
-                    basePath.handlePAResult(b, b.takeAtBat());
-                    lineup.incrimentCurrentBatter();
-                    System.out.println("\n\n");
-                } else {
-                    System.out.println("End of inning: " + scoreCard.getInning());
-                    scoreCard.incrimentInning();
-                    scoreCard.clearOuts();
-                    basePath.clearBasePath();
-                }
-            }   
+                }   
+                System.out.println("Game " + (i+1) + " has finsihed with " + scoreCard.getRuns() + " runs");
+                //System.out.println("+++++++++++");
+                //System.out.println("Game Total: " + scoreCard.getRuns());
+                totalRuns += scoreCard.getRuns();
+                //System.out.println("+++++++++++");
+                //System.out.println(lineup.getBatterLines());
+                scoreCard.reset();
+            }
             System.out.println("+++++++++++");
-            System.out.println("Game Total: " + scoreCard.getRuns());
+            System.out.println("Number of Games: " + numGames);
+            System.out.println("TotalRuns: " + totalRuns);
             System.out.println("+++++++++++");
             System.out.println(lineup.getBatterLines());
-
         }
     
 }

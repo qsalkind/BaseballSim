@@ -17,6 +17,13 @@ public class ScoreCard {
         scoringSummary = new ArrayList<>();
     }
     
+    public void reset() {
+        this.runs = 0;
+        this.currentOuts=0;
+        this.inning = 0;
+        this.scoringSummary.clear();
+    }
+    
     public void addRuns(int runs) {
         this.runs += runs;
     }
