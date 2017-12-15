@@ -118,10 +118,10 @@ public class BasePath {
                     batter.indicateSacHit();
                 }
                 if (second != null) {
-                    //Small chance of runner advancing
+                    //Small chance of runner advancing, not enough data
                 }
                 if (first != null) {
-                    //VERY small chance of advancing
+                    //VERY small chance of advancing, not enough data
                 }
                 break;
             case WALK:
