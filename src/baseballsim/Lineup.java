@@ -83,6 +83,19 @@ public class Lineup {
         return this;
     }
     
+    public void shuffleOrder() {
+        List<Batter> list = new ArrayList<>();
+        for (Batter i : batters) {
+          list.add(i);
+        }
+
+        Collections.shuffle(list);
+
+        for (int i = 0; i < list.size(); i++) {
+          batters[i] = list.get(i);
+        }  
+    }
+    
     @Override
     public String toString() {
         return "Current Batter: " + getCurrentBatter().getName();
