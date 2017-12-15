@@ -32,12 +32,19 @@ public class BasePath {
                     third = null;
                 }
                 if (second != null) {
-                    //runner on second, determin speed factor later as its  possibly not scoring position
-                    third = second;
+                    if (second.isFast()) {
+                        scoreCard.addRuns(1);
+                    } else {
+                        third = second;
                     second = null;
+                    }
                 }
                 if (first != null) {
-                    second = first;
+                    if (first.isFast() && third == null) {
+                        third = first;
+                    } else {
+                        second = first;
+                    }
                     first = null;
                 }
                 first = batter;
@@ -52,8 +59,12 @@ public class BasePath {
                     second = null;
                 }
                 if (first != null) {
-                    //runner may score from first in future
-                    third = first;
+                    //runner may score from first in if they are fast
+                    if (first.isFast()) {
+                        scoreCard.addRuns(1);
+                    } else {
+                        third = first;
+                    }
                     first = null;
                 }
                 second = batter;
@@ -84,7 +95,8 @@ public class BasePath {
             case FLYOUT:
                 scoreCard.addOut();
                 if (third!= null) {
-                    //chance of scoring on flyout
+                    scoreCard.addRuns(1);
+                    batter.indicateSacHit();
                 }
                 if (second != null) {
                     //chance of advancing
@@ -96,7 +108,9 @@ public class BasePath {
             case LINEOUT:
                 scoreCard.addOut();
                 if (third!= null) {
-                    //chance of scoring on lineout
+                    //make smaller chance
+                    scoreCard.addRuns(1);
+                    batter.indicateSacHit();
                 }
                 if (second != null) {
                     //chance of advancing
@@ -119,7 +133,7 @@ public class BasePath {
                 first = batter;
                 break;
             case GROUNDOUT:
-                //very complicated, for not it is just a single out or double play
+                //either a single or double player
                 scoreCard.addOut();
                 if (first != null) {
                     scoreCard.addOut();

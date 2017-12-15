@@ -41,16 +41,21 @@ public class Batter {
     private int atBats;
     private int timesOnBase;
     private int totalBases;
+    
+    private boolean isFast;
             
 
-    public Batter(String name, int paCount, int kCount, int bbCount, int groundBallCount, int lineDriveCount, int flyBallCount, int hrFb, int hrLd, int groundBallHits, int lineDriveHits, int flyBallHits, double ld2B, double gb2B, double fb2B) {
+    public Batter(String name, int paCount, int kCount, int bbCount, int groundBallCount, int lineDriveCount, int flyBallCount, int hrFb, int hrLd, int groundBallHits, int lineDriveHits, int flyBallHits, double ld2B, double gb2B, double fb2B, boolean isFast) {
         this.name = name;
+        this.isFast = isFast;
+        
         this.paCount = paCount;
         this.kCount = kCount;
         this.bbCount = bbCount;
         this.groundBallCount = groundBallCount;
         this.lineDriveCount = lineDriveCount;
         this.flyBallCount = flyBallCount;
+        
                 
         this.groundBallHits = groundBallHits;
         this.lineDriveHits = lineDriveHits;  //no HRs
@@ -221,8 +226,16 @@ public class Batter {
         return atBats;
     }
     
+    public void indicateSacHit() {
+        atBats -= 1;
+    }
+    
     public int getTimesOnBase() {
         return timesOnBase;
+    }
+    
+    public boolean isFast() {
+        return isFast;
     }
     
     @Override
