@@ -96,6 +96,11 @@ public class Batter {
         return name;
     }
     
+    /**
+     * Based of off the batters statistics, this returns a PAResult enum indicating
+     * the result of the plate appearance using RNG.
+     * @return 
+     */
     public PAResult takeAtBat() {
         double randomChance = Math.random();
         plateAppearances++;

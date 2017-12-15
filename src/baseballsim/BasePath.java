@@ -23,6 +23,12 @@ public class BasePath {
         scoreCard = s;       
     }
     
+    /**
+     * Handle the results of a certain batters plate appearance result, and update
+     * the base paths and scorecard accordingly.
+     * @param batter
+     * @param result 
+     */
     public void handlePAResult(Batter batter, PAResult result) {
         
         switch (result) {
@@ -113,7 +119,7 @@ public class BasePath {
                     batter.indicateSacHit();
                 }
                 if (second != null) {
-                    //chance of advancing
+                    //Small chance of runner advancing
                 }
                 if (first != null) {
                     //VERY small chance of advancing
