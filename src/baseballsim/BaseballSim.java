@@ -23,14 +23,21 @@ public class BaseballSim {
     private static ScoreCard scoreCard = new ScoreCard();
     private static BasePath basePath = new BasePath(scoreCard);
     private static int numGames = 162;
+    
                 
     public static void main(String args[]) {
         
+        ArrayList<Integer> results = new ArrayList<>();
+        
+        //randomly shuffle the batting order
         //lineup.shuffleOrder();
 
         int totalRuns = 0;
         //simulate some amount of games
         for (int i = 0; i < numGames; i++)    { 
+            //randomly shuffle the batting order (commented out unless desired)
+            //lineup.shuffleOrder();           
+            
             //simulate a game
             while (scoreCard.getInning() < 10) {
                 if (scoreCard.getCurrentOuts() < 3) {
@@ -52,11 +59,7 @@ public class BaseballSim {
 
             }   
             System.out.println("Game " + (i+1) + " has finsihed with " + scoreCard.getRuns() + " runs");
-            //System.out.println("+++++++++++");
-            //System.out.println("Game Total: " + scoreCard.getRuns());
             totalRuns += scoreCard.getRuns();
-            //System.out.println("+++++++++++");
-            //System.out.println(lineup.getBatterLines());
             scoreCard.reset();
         }
         System.out.println("+++++++++++");
@@ -64,6 +67,9 @@ public class BaseballSim {
         System.out.println("TotalRuns: " + totalRuns);
         System.out.println("+++++++++++");
         System.out.println(lineup.getBatterLines());
+        results.add(totalRuns);
+        totalRuns = 0;
     }
+    
     
 }

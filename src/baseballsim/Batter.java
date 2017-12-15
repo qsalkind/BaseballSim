@@ -16,6 +16,7 @@ public class Batter {
     private int groundBallCount;
     private double gbPct;
     private int lineDriveCount;
+    
     private double ldPct;
     private int flyBallCount;
     private double fbPct;
@@ -134,14 +135,16 @@ public class Batter {
                 randomChance = Math.random();
                 if (randomChance < gbHitPct) {
                     log( " > its a hit!");
+                    hits++;
+                    totalBases++;
+                    timesOnBase++;
                     if (randomChance3 < gb2BPct) {
                         log("  > DOUBLE!");
                         totalBases++;
                         return PAResult.DOUBLE;
-                    }
-                    hits++;
-                    totalBases++;
-                    timesOnBase++;
+                    } else {
+                        return PAResult.SINGLE;
+                    }                
                 }
                 else {
                     log(" > out");
