@@ -17,6 +17,16 @@ public class ScoreCard {
         scoringSummary = new ArrayList<>();
     }
     
+    /**
+     * Reset at the send of a game, clears all fields.
+     */
+    public void reset() {
+        this.runs = 0;
+        this.currentOuts=0;
+        this.inning = 0;
+        this.scoringSummary.clear();
+    }
+    
     public void addRuns(int runs) {
         this.runs += runs;
     }
@@ -47,10 +57,6 @@ public class ScoreCard {
 
     public int getInning() {
         return inning;
-    }
-    
-    public ArrayList<String> getScoringSummary() {
-        return scoringSummary;
     }
     
     @Override

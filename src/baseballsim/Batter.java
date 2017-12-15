@@ -16,6 +16,7 @@ public class Batter {
     private int groundBallCount;
     private double gbPct;
     private int lineDriveCount;
+    
     private double ldPct;
     private int flyBallCount;
     private double fbPct;
@@ -41,16 +42,21 @@ public class Batter {
     private int atBats;
     private int timesOnBase;
     private int totalBases;
+    
+    private boolean isFast;
             
 
-    public Batter(String name, int paCount, int kCount, int bbCount, int groundBallCount, int lineDriveCount, int flyBallCount, int hrFb, int hrLd, int groundBallHits, int lineDriveHits, int flyBallHits, double ld2B, double gb2B, double fb2B) {
+    public Batter(String name, int paCount, int kCount, int bbCount, int groundBallCount, int lineDriveCount, int flyBallCount, int hrFb, int hrLd, int groundBallHits, int lineDriveHits, int flyBallHits, double ld2B, double gb2B, double fb2B, boolean isFast) {
         this.name = name;
+        this.isFast = isFast;
+        
         this.paCount = paCount;
         this.kCount = kCount;
         this.bbCount = bbCount;
         this.groundBallCount = groundBallCount;
         this.lineDriveCount = lineDriveCount;
         this.flyBallCount = flyBallCount;
+        
                 
         this.groundBallHits = groundBallHits;
         this.lineDriveHits = lineDriveHits;  //no HRs
@@ -91,6 +97,11 @@ public class Batter {
         return name;
     }
     
+    /**
+     * Based of off the batters statistics, this returns a PAResult enum indicating
+     * the result of the plate appearance using RNG.
+     * @return 
+     */
     public PAResult takeAtBat() {
         double randomChance = Math.random();
         plateAppearances++;
@@ -124,14 +135,16 @@ public class Batter {
                 randomChance = Math.random();
                 if (randomChance < gbHitPct) {
                     log( " > its a hit!");
+                    hits++;
+                    totalBases++;
+                    timesOnBase++;
                     if (randomChance3 < gb2BPct) {
                         log("  > DOUBLE!");
                         totalBases++;
                         return PAResult.DOUBLE;
-                    }
-                    hits++;
-                    totalBases++;
-                    timesOnBase++;
+                    } else {
+                        return PAResult.SINGLE;
+                    }                
                 }
                 else {
                     log(" > out");
@@ -221,8 +234,16 @@ public class Batter {
         return atBats;
     }
     
+    public void indicateSacHit() {
+        atBats -= 1;
+    }
+    
     public int getTimesOnBase() {
         return timesOnBase;
+    }
+    
+    public boolean isFast() {
+        return isFast;
     }
     
     @Override

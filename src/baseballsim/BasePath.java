@@ -23,8 +23,15 @@ public class BasePath {
         scoreCard = s;       
     }
     
+    /**
+     * Handle the results of a certain batters plate appearance result, and update
+     * the base paths and scorecard accordingly.
+     * @param batter
+     * @param result 
+     */
     public void handlePAResult(Batter batter, PAResult result) {
         
+        double randomChance = Math.random();
         switch (result) {
             case SINGLE:
                 if (third != null) {
@@ -32,12 +39,19 @@ public class BasePath {
                     third = null;
                 }
                 if (second != null) {
-                    //runner on second, determin speed factor later as its  possibly not scoring position
-                    third = second;
+                    if (second.isFast() && Math.random() < 0.2) {
+                        scoreCard.addRuns(1);
+                    } else {
+                        third = second;
                     second = null;
+                    }
                 }
                 if (first != null) {
-                    second = first;
+                    if (first.isFast() && third == null && Math.random() < 0.2) {
+                        third = first;
+                    } else {
+                        second = first;
+                    }
                     first = null;
                 }
                 first = batter;
@@ -52,8 +66,12 @@ public class BasePath {
                     second = null;
                 }
                 if (first != null) {
-                    //runner may score from first in future
-                    third = first;
+                    //runner may score from first in if they are fast
+                    if (first.isFast() && Math.random() < 0.2) {
+                        scoreCard.addRuns(1);
+                    } else {
+                        third = first;
+                    }
                     first = null;
                 }
                 second = batter;
@@ -68,7 +86,6 @@ public class BasePath {
                     second = null;
                 }
                 if (first != null) {
-                    //runner may score from first in future
                     scoreCard.addRuns(1);
                     first = null;
                 }
@@ -83,26 +100,28 @@ public class BasePath {
                 break;
             case FLYOUT:
                 scoreCard.addOut();
-                if (third!= null) {
-                    //chance of scoring on flyout
+                if (third!= null && randomChance < 0.4) {
+                    scoreCard.addRuns(1);
+                    batter.indicateSacHit();
                 }
                 if (second != null) {
-                    //chance of advancing
+                    //chance of advancing, negligible for now
                 }
                 if (first != null) {
-                    //very small chance of advancing
+                    //chance of advancing, negligible for now
                 }
                 break;
             case LINEOUT:
                 scoreCard.addOut();
-                if (third!= null) {
-                    //chance of scoring on lineout
+                if (third!= null && randomChance < 0.25) {
+                    scoreCard.addRuns(1);
+                    batter.indicateSacHit();
                 }
                 if (second != null) {
-                    //chance of advancing
+                    //Small chance of runner advancing, not enough data
                 }
                 if (first != null) {
-                    //VERY small chance of advancing
+                    //VERY small chance of advancing, not enough data
                 }
                 break;
             case WALK:
@@ -119,7 +138,6 @@ public class BasePath {
                 first = batter;
                 break;
             case GROUNDOUT:
-                //very complicated, for not it is just a single out or double play
                 scoreCard.addOut();
                 if (first != null) {
                     scoreCard.addOut();
